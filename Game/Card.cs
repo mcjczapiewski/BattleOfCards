@@ -7,8 +7,9 @@
         private int atribute2;
         private int atribute3;
 
-        public Card(int atribute1, int atribute2, int atribute3)
+        public Card(string name, int atribute1, int atribute2, int atribute3)
         {
+            Name = this.name;
             Atribute1 = this.atribute1;
             Atribute2 = this.atribute2;
             Atribute3 = this.atribute3;

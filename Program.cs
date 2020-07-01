@@ -7,6 +7,7 @@ namespace BattleOfCards
     {
         public static void Main()
         {
+
         }
     } 
 }
