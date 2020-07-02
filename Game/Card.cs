@@ -2,9 +2,25 @@
 {
     public class Card
     {
-        public string Name { get; set; }
-        public int Atribute1 { get; set; }
-        public int Atribute2 { get; set; }
-        public int Atribute3 { get; set; }
+        private string name;
+        private int atribute1;
+        private int atribute2;
+        private int atribute3;
+
+        public Card(string name, int atribute1, int atribute2, int atribute3)
+        {
+            Name = this.name;
+            Atribute1 = this.atribute1;
+            Atribute2 = this.atribute2;
+            Atribute3 = this.atribute3;
+        }
+
+        public string Name { get => this.name; set => this.name = value; }
+        
+        public int Atribute1 { get => this.atribute1; set => this.atribute1 = value; }
+        public int Atribute2 { get => this.atribute2; set => this.atribute2 = value; }
+        public int Atribute3 { get => this.atribute3; set => this.atribute3 = value; }
+
+
     }
 }

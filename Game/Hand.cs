@@ -1,21 +1,32 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
 
 namespace BattleOfCards.Game
 {
     class Hand
     {
-        public List<Card> PlayerHand { get; set; }
+        private List<Card> playerHand;
 
-        public void GetCards()
+        public Hand(List<Card> playerHand)
         {
-            throw new NotImplementedException();
+            PlayerHand = playerHand;
         }
+
+        public List<Card> PlayerHand { get => this.playerHand;  private set => this.playerHand = value; }
+
 
         public void RemoveCard()
         {
-            throw new NotImplementedException();
+             playerHand.RemoveAt(0);
+        }
+
+        public void AddCard(Card card)
+        {
+            PlayerHand.Add(card);
+        }
+
+        public void AddCard(List<Card> cards)
+        {
+            PlayerHand.AddRange(cards);
         }
     }
 }
