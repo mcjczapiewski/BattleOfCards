@@ -14,9 +14,24 @@ namespace BattleOfCards.Game
             throw new NotImplementedException();
         }
 
-        public void Shuffle()
+        private static List<Card> Shuffle(List<Card> DeckOfCards)
         {
-            throw new NotImplementedException();
+            //Shuffle using Fisher-Yates Modern method ---> select random number, swap with last number then add to collection.
+            Random randomCard = new Random(DateTime.Now.Millisecond);
+            for (int n = DeckOfCards.Count - 1; n > 0; --n)
+            {
+                int randomedCard = randomCard.Next(n + 1);
+
+                Card temporaryDeckCard = DeckOfCards[n];
+                DeckOfCards[n] = DeckOfCards[randomedCard];
+                DeckOfCards[randomedCard] = temporaryDeckCard;
+            }
+            List<Card> ShuffledDeck = new List<Card>();
+            foreach (var card in DeckOfCards)
+            {
+                ShuffledDeck.Add(card);
+            }
+            return ShuffledDeck;
         }
         
     }
