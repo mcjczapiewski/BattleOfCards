@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Text;
 using BattleOfCards.Output;
 
 namespace BattleOfCards
@@ -7,6 +9,8 @@ namespace BattleOfCards
     {
         public static void Main()
         {
+            PrintOutput.PrintMenu();
+            Console.ReadKey();
         }
-    } 
+    }
 }
