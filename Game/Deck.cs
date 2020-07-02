@@ -9,10 +9,6 @@ namespace BattleOfCards.Game
     {
         private List<Card> DeckOfCards = new List<Card>();
 
-        public void Dealing()
-        {
-            throw new NotImplementedException();
-        }
 
         private static List<Card> Shuffle(List<Card> DeckOfCards)
         {
@@ -33,6 +29,13 @@ namespace BattleOfCards.Game
             }
             return ShuffledDeck;
         }
-        
+        private static IEnumerable<List<Card>> Dealing(List<Card> ShuffledDeck, numberOfPlayers)
+        {
+            for (int i = 0; i < ShuffledDeck.Count(); i += numberOfPlayer)
+            {
+                yield return ShuffledDeck.GetRange(i, Math.Min(numberOfPlayers, ShuffledDeck.Count - i));
+            }
+        }
+
     }
 }
