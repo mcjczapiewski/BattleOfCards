@@ -8,6 +8,11 @@ namespace BattleOfCards.Game
     {
         public string Name { get; set; }
 
+        public Player(string name)
+        {
+            Name = name;
+        }
+
         public void Choose()
         {
             throw new NotImplementedException();
