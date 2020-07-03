@@ -10,7 +10,7 @@ namespace BattleOfCards
     {
         public static void Main()
         {
-
+            Game.Table.CompareCards();
         }
     } 
 }

@@ -29,9 +29,9 @@ namespace BattleOfCards.Game
             }
             return ShuffledDeck;
         }
-        private static IEnumerable<List<Card>> Dealing(List<Card> ShuffledDeck, numberOfPlayers)
+        private static IEnumerable<List<Card>> Dealing(List<Card> ShuffledDeck, int numberOfPlayers)
         {
-            for (int i = 0; i < ShuffledDeck.Count(); i += numberOfPlayer)
+            for (int i = 0; i < ShuffledDeck.Count(); i += numberOfPlayers)
             {
                 yield return ShuffledDeck.GetRange(i, Math.Min(numberOfPlayers, ShuffledDeck.Count - i));
             }

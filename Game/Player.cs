@@ -15,6 +15,7 @@ namespace BattleOfCards.Game
 
         public void Choose()
         {
+            
             throw new NotImplementedException();
         }
     }
