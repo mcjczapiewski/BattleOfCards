@@ -4,8 +4,8 @@ using System.Collections.Generic;
 
 namespace BattleOfCards.Interfaces
 {
-    public interface ICards
+    public interface ICardRepo
     {
-        List<Card> GetAllCards(string fileName);
+        List<Card> GetAllCards();
     }
 }

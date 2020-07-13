@@ -6,5 +6,6 @@ namespace BattleOfCards.Game
 {
     class Deck
     {
+
     }
 }
