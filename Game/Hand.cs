@@ -1,14 +1,13 @@
 ﻿using System.Collections.Generic;
 
-namespace BattleOfCards.Player
+namespace BattleOfCards.Game
 {
-    class Hand
+    public class Hand
     {
         private List<Card> playerHand;
 
-        public Hand(List<Card> playerHand)
+        public Hand()
         {
-            PlayerHand = playerHand;
         }
 
         public List<Card> PlayerHand { get => this.playerHand;  private set => this.playerHand = value; }
@@ -19,12 +18,12 @@ namespace BattleOfCards.Player
              playerHand.RemoveAt(0);
         }
 
-        public void AddCard(Card card)
+        public void AddSingleCard(Card card)
         {
             PlayerHand.Add(card);
         }
 
-        public void AddCard(List<Card> cards)
+        public void AddCards(List<Card> cards)
         {
             PlayerHand.AddRange(cards);
         }

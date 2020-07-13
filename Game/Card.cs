@@ -1,4 +1,4 @@
-﻿namespace BattleOfCards.Player
+﻿namespace BattleOfCards.Game
 {
     public class Card
     {

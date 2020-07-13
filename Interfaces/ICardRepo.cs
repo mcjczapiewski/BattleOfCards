@@ -1,5 +1,5 @@
 ﻿
-using BattleOfCards.Player;
+using BattleOfCards.Game;
 using System.Collections.Generic;
 
 namespace BattleOfCards.Interfaces

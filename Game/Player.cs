@@ -2,13 +2,21 @@
 using System.Collections.Generic;
 using System.Text;
 
-namespace BattleOfCards.Player
+namespace BattleOfCards.Game
 {
-    class Player
+    public class Player
     {
         public string Name { get; set; }
 
-        public void Choose()
+        public Hand handOfCards;
+
+        public Player(string name, Hand handOfCards)
+        {
+            Name = name;
+            this.handOfCards = handOfCards;
+        }
+
+        public int ChooseAtribute(Card card)
         {
             throw new NotImplementedException();
         }
