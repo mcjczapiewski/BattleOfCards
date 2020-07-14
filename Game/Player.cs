@@ -4,18 +4,20 @@ using System.Text;
 
 namespace BattleOfCards.Game
 {
-    class Player
+    public class Player
     {
         public string Name { get; set; }
 
-        public Player(string name)
+        public Hand handOfCards;
+
+        public Player(string name, Hand handOfCards)
         {
             Name = name;
+            this.handOfCards = handOfCards;
         }
 
-        public void Choose()
+        public int ChooseAtribute(Card card)
         {
-            
             throw new NotImplementedException();
         }
     }
