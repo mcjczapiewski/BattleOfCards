@@ -9,6 +9,10 @@ namespace BattleOfCards.Game
     {
         private List<Card> DeckOfCards = new List<Card>();
 
+        public Deck(List<Card> deckOfCards)
+        {
+            DeckOfCards = deckOfCards;
+        }
 
         private static List<Card> Shuffle(List<Card> DeckOfCards)
         {
