@@ -33,7 +33,7 @@ namespace BattleOfCards.Game
             }
             return ShuffledDeck;
         }
-        private static IEnumerable<List<Card>> Dealing(List<Card> ShuffledDeck, int numberOfPlayers)
+        public static IEnumerable<List<Card>> Dealing(List<Card> ShuffledDeck, int numberOfPlayers)
         {
             for (int i = 0; i < ShuffledDeck.Count(); i += numberOfPlayers)
             {
