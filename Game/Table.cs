@@ -8,19 +8,25 @@ namespace BattleOfCards.Game
 {
     class Table
     {
-        public List<Player> Players;
+        public static List<Player> Players;
         private static Dictionary<string, int> cardsToCompare ;
-
-        //public static string userInput { get; private set; }
+        private static bool stringOutput = false;
+        private static bool intOutput = true;
 
         public static void GameStart()
         {
-            int userInput = (int)UserInputs.GetUserInput("What is the number of players?",
-                                                         true);
-            for (int i = 0; i < userInput; i++)
+            int numberOfPlayers = (int)UserInputs.GetUserInput(
+                "What is the number of players?",
+                intOutput);
+            for (int i = 0; i < numberOfPlayers; i++)
             {
-
+                string playerName = (string)UserInputs.GetUserInput(
+                    $"Set name for player no {i + 1}",
+                    stringOutput);
+                Player player = new Player(playerName);
+                Players.Add(player);
             }
+
             // shuffle
             // dealing
             // random who starts

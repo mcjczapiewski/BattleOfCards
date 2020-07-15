@@ -6,15 +6,14 @@ namespace BattleOfCards.Game
 {
     public class Player
     {
-        public List<Card> handOfCards;
+        //public List<Card> handOfCards;
 
         public string Name { get; set; }
+        public List<Card> HandOfCards = new List<Card>();
 
-
-        public Player(string name, List<Card> handOfCards)
+        public Player(string name)
         {
             Name = name;
-            this.handOfCards = handOfCards;
         }
 
         public int ChooseAtribute(Card card)
@@ -24,7 +23,7 @@ namespace BattleOfCards.Game
 
         public Card PlayCard()
         {
-            Card cardToPlay = handOfCards[0];
+            Card cardToPlay = this. HandOfCards[0];
             handOfCards.RemoveAt(0);
 
             return cardToPlay;
