@@ -7,7 +7,7 @@ namespace BattleOfCards.Game
 {
     class Deck
     {
-        private List<Card> DeckOfCards = new List<Card>();
+        public List<Card> DeckOfCards = new List<Card>();
 
         public Deck(List<Card> deckOfCards)
         {

@@ -22,9 +22,7 @@ namespace BattleOfCards.Game
                 {
                     string[] s = line.Split(",");
 
-                    Card card = new Card (s[0], Convert.ToInt32(s[1]), Convert.ToInt32(s[2]), Convert.ToInt32(s[3]))
-                    {
-                    };
+                    Card card = new Card(s[0], Convert.ToInt32(s[1]), Convert.ToInt32(s[2]), Convert.ToInt32(s[3]));
 
                     cards.Add(card);
                 }
