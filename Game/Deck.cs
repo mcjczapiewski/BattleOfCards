@@ -14,26 +14,20 @@ namespace BattleOfCards.Game
             DeckOfCards = deckOfCards;
         }
 
-        private static List<Card> Shuffle(List<Card> DeckOfCards)
+        public void Shuffle()
         {
             //Shuffle using Fisher-Yates Modern method ---> select random number, swap with last number then add to collection.
             Random randomCard = new Random(DateTime.Now.Millisecond);
-            for (int n = DeckOfCards.Count - 1; n > 0; --n)
+            for (int n = this.DeckOfCards.Count - 1; n > 0; --n)
             {
                 int randomedCard = randomCard.Next(n + 1);
 
-                Card temporaryDeckCard = DeckOfCards[n];
-                DeckOfCards[n] = DeckOfCards[randomedCard];
-                DeckOfCards[randomedCard] = temporaryDeckCard;
+                Card temporaryDeckCard = this.DeckOfCards[n];
+                this.DeckOfCards[n] = this.DeckOfCards[randomedCard];
+                this.DeckOfCards[randomedCard] = temporaryDeckCard;
             }
-            List<Card> ShuffledDeck = new List<Card>();
-            foreach (var card in DeckOfCards)
-            {
-                ShuffledDeck.Add(card);
-            }
-            return ShuffledDeck;
         }
-        private static IEnumerable<List<Card>> Dealing(List<Card> ShuffledDeck, int numberOfPlayers)
+        public IEnumerable<List<Card>> Dealing(List<Card> ShuffledDeck, int numberOfPlayers)
         {
             for (int i = 0; i < ShuffledDeck.Count(); i += numberOfPlayers)
             {

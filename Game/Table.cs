@@ -16,16 +16,17 @@ namespace BattleOfCards.Game
 
         static ICardRepo repo = new CardRepo();
 
-        Deck deck = new Deck(repo.GetAllCards());
+        public static Deck deck = new Deck(repo.GetAllCards());
 
         public static void GameStart()
         {
-            int numberOfPlayers = (int)UserInputs.GetUserInput(
-                "What is the number of players?",
-                intOutput);
-            Player.CreatePlayers(numberOfPlayers);
+            //int numberOfPlayers = (int)UserInputs.GetUserInput(
+            //    "What is the number of players?",
+            //    intOutput);
+            //Player.CreatePlayers(numberOfPlayers);
 
             // shuffle
+            deck.Shuffle();
             // dealing
             // random who starts
             // do 
