@@ -17,6 +17,7 @@ namespace BattleOfCards.Game
         static ICardRepo repo = new CardRepo();
 
         public Deck deck = new Deck(repo.GetAllCards());
+        public int PlayerToStart;
 
         public Table()
         {
@@ -33,6 +34,8 @@ namespace BattleOfCards.Game
             // dealing
             deck.Dealing();
             // random who starts
+            Random random = new Random();
+            PlayerToStart = random.Next(numberOfPlayers);
             // do 
             // PlayRound
             // while !WinRound
@@ -40,13 +43,12 @@ namespace BattleOfCards.Game
 
         
 
-        public static void PlayRound()
+        public void PlayRound()
         {
-            foreach (Player player in Players)
-            {
 
-            }
             // pick from player
+            var choosenAttribute = Players[PlayerToStart].ChooseAtribute(Players[PlayerToStart].HandOfCards[0]);
+            
             // compare to cards from other players
             // is there a tie
             // highest value wins

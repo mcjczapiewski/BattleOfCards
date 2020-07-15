@@ -33,7 +33,16 @@ namespace BattleOfCards.Game
 
         public int ChooseAtribute(Card card)
         {
-            throw new NotImplementedException();
+            bool intOutput = true;
+            Console.WriteLine("You start this round, here's your current card.");
+            Console.WriteLine($"Name: {card.Name}\n" +
+                $"Att1: {card.Atribute1}\n" +
+                $"Att2: {card.Atribute2}\n" +
+                $"Att3: {card.Atribute3}\n");
+            return (int)UserInputs.GetUserInput(
+                "Pick an attribute to fight with.",
+                intOutput);
+            
         }
 
         public Card PlayCard()
