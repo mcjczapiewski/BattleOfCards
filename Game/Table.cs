@@ -47,24 +47,24 @@ namespace BattleOfCards.Game
         {
 
             // pick from player
-            var choosenAttribute = Players[PlayerToStart].ChooseAtribute(Players[PlayerToStart].HandOfCards[0]);
+            var choosenAttribute = Players[PlayerToStart].ChooseAttribute(Players[PlayerToStart].HandOfCards[0]);
             
             // compare to cards from other players
+
             // is there a tie
             // highest value wins
             // add to the end of player's list
         }
 
-        //public static Player CompareCards()
-        //{
-        //    cardsToCompare.Add("one", 1);
-        //    cardsToCompare.Add("two", 2);
-        //    cardsToCompare.Add("three", 3);
-        //    string result = cardsToCompare.Max(kvp => kvp.Key);
-        //    Console.WriteLine(result);
-        //    Console.ReadKey();
-        //    return Player;
-        //}
+        public static void CompareCards()
+        {
+            cardsToCompare.Add("one", 1);
+            cardsToCompare.Add("two", 2);
+            cardsToCompare.Add("three", 3);
+            string result = cardsToCompare.Max(kvp => kvp.Key);
+            Console.WriteLine(result);
+            Console.ReadKey();
+        }
 
         public static bool Tie()
         {

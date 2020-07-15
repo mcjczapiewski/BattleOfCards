@@ -31,7 +31,7 @@ namespace BattleOfCards.Game
             }
         }
 
-        public int ChooseAtribute(Card card)
+        public int ChooseAttribute(Card card)
         {
             bool intOutput = true;
             Console.WriteLine("You start this round, here's your current card.");
