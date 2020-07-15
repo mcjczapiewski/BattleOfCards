@@ -8,7 +8,7 @@ namespace BattleOfCards.Game
 {
     public class CardRepo : ICardRepo
     {
-        private string fileName = "cards.txt";
+        private string fileName = "Game\\cards.txt";
 
         public List<Card> GetAllCards()
         {
