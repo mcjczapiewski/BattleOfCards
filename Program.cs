@@ -13,7 +13,8 @@ namespace BattleOfCards
     {
         public static void Main()
         {
-            Table.GameStart();
+            Table table = new Table();
+            table.GameStart();
 
         }
     } 

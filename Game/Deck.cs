@@ -27,13 +27,27 @@ namespace BattleOfCards.Game
                 this.DeckOfCards[randomedCard] = temporaryDeckCard;
             }
         }
-        public IEnumerable<List<Card>> Dealing(List<Card> ShuffledDeck, int numberOfPlayers)
+        public void Dealing()
         {
-            for (int i = 0; i < ShuffledDeck.Count(); i += numberOfPlayers)
+            for (int i = 0; i < Table.Players.Count() && DeckOfCards.Count() != 0; i++)
             {
-                yield return ShuffledDeck.GetRange(i, Math.Min(numberOfPlayers, ShuffledDeck.Count - i));
+                Table.Players[i].HandOfCards.Add(DeckOfCards[0]);
+                DeckOfCards.RemoveAt(0);
+                if (i == Table.Players.Count() - 1)
+                {
+                    i = -1;
+                }
             }
         }
+
+        //public IEnumerable<List<Card>> Dealing(int numberOfPlayers)
+        //{
+        //    for (int i = 0; i < this.DeckOfCards.Count(); i += numberOfPlayers)
+        //    {
+        //        yield return this.DeckOfCards.GetRange(i, Math.Min(numberOfPlayers, this.DeckOfCards.Count - i));
+        //    }
+        //}
+
 
     }
 }
