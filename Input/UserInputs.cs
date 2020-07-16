@@ -26,7 +26,7 @@ namespace BattleOfCards.Input
                     else
                     {
 
-                        Console.WriteLine("This answer should be an integer." +
+                        Console.WriteLine("This answer should be an integer.\n" +
                             "Please, try again.");
                         continue;
                     }

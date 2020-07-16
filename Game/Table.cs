@@ -1,27 +1,81 @@
 ﻿using BattleOfCards.Input;
 using BattleOfCards.Interfaces;
-using DryIoc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace BattleOfCards.Game
 {
-    class Table
+    internal class Table
     {
-        public static List<Player> Players = new List<Player>();
         public static Dictionary<string, int> CardsToCompare = new Dictionary<string, int>();
-        private static bool stringOutput = false;
-        private static bool intOutput = true;
-
-        static ICardRepo repo = new CardRepo();
-
+        public static List<Card> ItWasTieDeck = new List<Card>();
+        public static List<Player> Players = new List<Player>();
         public Deck deck = new Deck(repo.GetAllCards());
         public int PlayerToStart;
+        private static bool intOutput = true;
+
+        private static ICardRepo repo = new CardRepo();
 
         public Table()
         {
+        }
+
+        public void CompareCards(int pickedAttribute)
+        {
+            foreach (Player player in Players)
+            {
+                switch (pickedAttribute)
+                {
+                    case 1:
+                        CardsToCompare.Add(player.Name, player.HandOfCards[0].Attribute1);
+                        break;
+
+                    case 2:
+                        CardsToCompare.Add(player.Name, player.HandOfCards[0].Attribute2);
+                        break;
+
+                    case 3:
+                        CardsToCompare.Add(player.Name, player.HandOfCards[0].Attribute3);
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+
+            List<Card> cardsToTransfer = new List<Card>();
+            foreach (Player player in Players)
+            {
+                cardsToTransfer.Add(player.HandOfCards[0]);
+                player.HandOfCards.RemoveAt(0);
+            }
+
+            bool doWeHaveAWinner = TieOrWin();
+            string result = null;
+            if (doWeHaveAWinner)
+            {
+                int findThisValue = CardsToCompare.Max(kvp => kvp.Value);
+                result = CardsToCompare.Where(val => val.Value == findThisValue).Select(key => key.Key).FirstOrDefault();
+                TransferCardsToWinner(result, cardsToTransfer);
+                PlayerToStart = Players.FindIndex(p => p.Name.Equals(result));
+            }
+            else
+            {
+                Console.WriteLine("Bummer, we have tie in this round.");
+                ItWasTieDeck.AddRange(cardsToTransfer);
+            }
+            cardsToTransfer.Clear();
+            CardsToCompare.Clear();
+        }
+
+        public bool EndGame()
+        {
+            if (Players.Any(player => player.HandOfCards.Count == 0))
+            {
+                return true;
+            }
+            return false;
         }
 
         public void GameStart()
@@ -37,71 +91,39 @@ namespace BattleOfCards.Game
             // random who starts
             Random random = new Random();
             PlayerToStart = random.Next(numberOfPlayers);
-            // do 
+            // do
             PlayRound();
             // while !WinRound
         }
 
-        
-
         public void PlayRound()
         {
-
             // pick from player
-            var pickedAttribute = Players[PlayerToStart].ChooseAttribute(Players[PlayerToStart].HandOfCards[0]);
-            CompareCards(pickedAttribute);
-            // compare to cards from other players
-            // is there a tie
-            // highest value wins
-            // add to the end of player's list
-        }
-
-        public void CompareCards(int pickedAttribute)
-        {
+            do
+            {
+                foreach (Player player in Players)
+                {
+                    Console.WriteLine($"{player.Name} has {player.HandOfCards.Count()} cards.");
+                }
+                var pickedAttribute = Players[PlayerToStart].ChooseAttribute(Players[PlayerToStart].HandOfCards[0]);
+                CompareCards(pickedAttribute);
+            } while (!EndGame());
+            Player winner = Players[0];
+            Player looser = null;
             foreach (Player player in Players)
             {
-                switch (pickedAttribute)
+                if (player.HandOfCards.Count() == 0)
                 {
-                    case 1:
-                        CardsToCompare.Add(player.Name, player.HandOfCards[0].Attribute1);
-                        break;
-                    case 2:
-                        CardsToCompare.Add(player.Name, player.HandOfCards[0].Attribute2);
-                        break;
-                    case 3:
-                        CardsToCompare.Add(player.Name, player.HandOfCards[0].Attribute3);
-                        break;
-                    default:
-                        break;
+                    looser = player;
+                    continue;
+                }
+                if (player.HandOfCards.Count() > winner.HandOfCards.Count())
+                {
+                    winner = player;
                 }
             }
-            CardsToCompare.Add("one", 33);
-            CardsToCompare.Add("blll", 33);
-            CardsToCompare.Add("oooo", 33);
-
-            bool doWeHaveAWinner = TieOrWin();
-            string result = null;
-            if (doWeHaveAWinner)
-            {
-                result = CardsToCompare.Max(kvp => kvp.Key);
-            }
-            TransferCardsToWinner(result);
-        }
-
-        private void TransferCardsToWinner(string result)
-        {
-            List<Card> cardsToTransfer = new List<Card>();
-            foreach (Player player in Players)
-            {
-                cardsToTransfer.Add(player.HandOfCards[0]);
-                player.HandOfCards.RemoveAt(0);
-            }
-            deck.Shuffle(cardsToTransfer);
-            foreach (Card card in cardsToTransfer)
-            {
-                Players.Find(p => p.Name.Equals(result)).HandOfCards.Add(card);
-            }
-            cardsToTransfer.Clear();
+            Console.WriteLine($"{winner.Name} wins this game!\n" +
+                $"{looser.Name} has 0 cards.");
         }
 
         public bool TieOrWin()
@@ -117,13 +139,18 @@ namespace BattleOfCards.Game
             return true;
         }
 
-        public bool EndGame()
+        private void TransferCardsToWinner(string result, List<Card> cardsToTransfer)
         {
-            if (Players.Any(player => player.HandOfCards.Count == 0))
+            if (ItWasTieDeck.Count() > 0)
             {
-                return true;
+                cardsToTransfer.AddRange(ItWasTieDeck);
+                ItWasTieDeck.Clear();
             }
-            return false;
+            deck.Shuffle(cardsToTransfer);
+            foreach (Card card in cardsToTransfer)
+            {
+                Players.Find(p => p.Name.Equals(result)).HandOfCards.Add(card);
+            }
         }
     }
 }

@@ -17,7 +17,6 @@ namespace BattleOfCards.Game
             using (StreamReader sr = new StreamReader(fileName))
             {
                 string line;
-
                 while ((line = sr.ReadLine()) != null)
                 {
                     string[] s = line.Split(",");
