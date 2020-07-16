@@ -14,17 +14,17 @@ namespace BattleOfCards.Game
             DeckOfCards = deckOfCards;
         }
 
-        public void Shuffle()
+        public void Shuffle(List<Card> deckToShuffle)
         {
             //Shuffle using Fisher-Yates Modern method ---> select random number, swap with last number then add to collection.
             Random randomCard = new Random(DateTime.Now.Millisecond);
-            for (int n = this.DeckOfCards.Count - 1; n > 0; --n)
+            for (int n = deckToShuffle.Count - 1; n > 0; --n)
             {
                 int randomedCard = randomCard.Next(n + 1);
 
-                Card temporaryDeckCard = this.DeckOfCards[n];
-                this.DeckOfCards[n] = this.DeckOfCards[randomedCard];
-                this.DeckOfCards[randomedCard] = temporaryDeckCard;
+                Card temporaryDeckCard = deckToShuffle[n];
+                deckToShuffle[n] = deckToShuffle[randomedCard];
+                deckToShuffle[randomedCard] = temporaryDeckCard;
             }
         }
         public void Dealing()

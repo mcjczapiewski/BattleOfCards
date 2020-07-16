@@ -1,6 +1,7 @@
 ﻿using BattleOfCards.Input;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 
@@ -34,15 +35,20 @@ namespace BattleOfCards.Game
         public int ChooseAttribute(Card card)
         {
             bool intOutput = true;
-            Console.WriteLine("You start this round, here's your current card.");
+            int pickedAttribute;
+            Console.WriteLine($"{this.Name} start this round, here's your current card.");
             Console.WriteLine($"Name: {card.Name}\n" +
-                $"Att1: {card.Atribute1}\n" +
-                $"Att2: {card.Atribute2}\n" +
-                $"Att3: {card.Atribute3}\n");
-            return (int)UserInputs.GetUserInput(
+                $"  (1)  Att1: {card.Attribute1}\n" +
+                $"  (2)  Att2: {card.Attribute2}\n" +
+                $"  (3)  Att3: {card.Attribute3}\n");
+            do
+            {
+                pickedAttribute = (int)UserInputs.GetUserInput(
                 "Pick an attribute to fight with.",
                 intOutput);
-            
+            } while (!new[] { 1, 2, 3 }.Contains(pickedAttribute));
+
+            return pickedAttribute;
         }
 
         public Card PlayCard()

@@ -3,18 +3,18 @@
     public class Card
     {
 
-        public Card(string name, int atribute1, int atribute2, int atribute3)
+        public Card(string name, int attribute1, int attribute2, int attribute3)
         {
             this.Name = name;
-            this.Atribute1 = atribute1;
-            this.Atribute2 = atribute2;
-            this.Atribute3 = atribute3;
+            this.Attribute1 = attribute1;
+            this.Attribute2 = attribute2;
+            this.Attribute3 = attribute3;
         }
 
         public string Name { get; set; }
-        public int Atribute1 { get; set; }
-        public int Atribute2 { get; set; }
-        public int Atribute3 { get; set; }
+        public int Attribute1 { get; set; }
+        public int Attribute2 { get; set; }
+        public int Attribute3 { get; set; }
 
 
     }

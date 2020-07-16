@@ -14,7 +14,6 @@ namespace BattleOfCards
         public static void Main()
         {
             Table table = new Table();
-
             table.GameStart();
 
         }

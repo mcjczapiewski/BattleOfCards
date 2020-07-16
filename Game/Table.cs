@@ -10,7 +10,7 @@ namespace BattleOfCards.Game
     class Table
     {
         public static List<Player> Players = new List<Player>();
-        private static Dictionary<string, int> cardsToCompare ;
+        public static Dictionary<string, int> CardsToCompare = new Dictionary<string, int>();
         private static bool stringOutput = false;
         private static bool intOutput = true;
 
@@ -30,14 +30,14 @@ namespace BattleOfCards.Game
                 intOutput);
             Player.CreatePlayers(numberOfPlayers);
 
-            deck.Shuffle();
+            deck.Shuffle(deck.DeckOfCards);
             // dealing
             deck.Dealing();
             // random who starts
             Random random = new Random();
             PlayerToStart = random.Next(numberOfPlayers);
             // do 
-            // PlayRound
+            PlayRound();
             // while !WinRound
         }
 
@@ -47,23 +47,51 @@ namespace BattleOfCards.Game
         {
 
             // pick from player
-            var choosenAttribute = Players[PlayerToStart].ChooseAttribute(Players[PlayerToStart].HandOfCards[0]);
-            
+            var pickedAttribute = Players[PlayerToStart].ChooseAttribute(Players[PlayerToStart].HandOfCards[0]);
+            CompareCards(pickedAttribute);
             // compare to cards from other players
-
             // is there a tie
             // highest value wins
             // add to the end of player's list
         }
 
-        public static void CompareCards()
+        public void CompareCards(int pickedAttribute)
         {
-            cardsToCompare.Add("one", 1);
-            cardsToCompare.Add("two", 2);
-            cardsToCompare.Add("three", 3);
-            string result = cardsToCompare.Max(kvp => kvp.Key);
-            Console.WriteLine(result);
-            Console.ReadKey();
+            foreach (Player player in Players)
+            {
+                switch (pickedAttribute)
+                {
+                    case 1:
+                        CardsToCompare.Add(player.Name, player.HandOfCards[0].Attribute1);
+                        break;
+                    case 2:
+                        CardsToCompare.Add(player.Name, player.HandOfCards[0].Attribute2);
+                        break;
+                    case 3:
+                        CardsToCompare.Add(player.Name, player.HandOfCards[0].Attribute3);
+                        break;
+                    default:
+                        break;
+                }
+            }
+            string result = CardsToCompare.Max(kvp => kvp.Key);
+            TransferCardsToWinner(result);
+        }
+
+        private void TransferCardsToWinner(string result)
+        {
+            List<Card> cardsToTransfer = new List<Card>();
+            foreach (Player player in Players)
+            {
+                cardsToTransfer.Add(player.HandOfCards[0]);
+                player.HandOfCards.RemoveAt(0);
+            }
+            deck.Shuffle(cardsToTransfer);
+            foreach (Card card in cardsToTransfer)
+            {
+                Players.Find(p => p.Name.Equals(result)).HandOfCards.Add(card);
+            }
+            cardsToTransfer.Clear();
         }
 
         public static bool Tie()
@@ -72,10 +100,13 @@ namespace BattleOfCards.Game
             throw new NotImplementedException();
         }
 
-        public static bool WinRound()
+        public static bool WinGame()
         {
-            // check if player took all cards possible
-            throw new NotImplementedException();
+            if (Players.Any(player => player.HandOfCards.Count == 32))
+            {
+                return true;
+            }
+            return false;
         }
     }
 }
