@@ -1,5 +1,6 @@
 ﻿using BattleOfCards.Input;
 using BattleOfCards.Interfaces;
+using DryIoc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,7 +75,16 @@ namespace BattleOfCards.Game
                         break;
                 }
             }
-            string result = CardsToCompare.Max(kvp => kvp.Key);
+            CardsToCompare.Add("one", 33);
+            CardsToCompare.Add("blll", 33);
+            CardsToCompare.Add("oooo", 33);
+
+            bool doWeHaveAWinner = TieOrWin();
+            string result = null;
+            if (doWeHaveAWinner)
+            {
+                result = CardsToCompare.Max(kvp => kvp.Key);
+            }
             TransferCardsToWinner(result);
         }
 
@@ -94,15 +104,22 @@ namespace BattleOfCards.Game
             cardsToTransfer.Clear();
         }
 
-        public static bool Tie()
+        public bool TieOrWin()
         {
-            // check all cards from dictionary if selected attribute has the same value
-            throw new NotImplementedException();
+            var thisIsTie = CardsToCompare
+                .GroupBy(z => z.Value)
+                .Where(z => z.Count() > 1)
+                .ToList();
+            if (thisIsTie.Count() != 0)
+            {
+                return false;
+            }
+            return true;
         }
 
-        public static bool WinGame()
+        public bool EndGame()
         {
-            if (Players.Any(player => player.HandOfCards.Count == 32))
+            if (Players.Any(player => player.HandOfCards.Count == 0))
             {
                 return true;
             }
