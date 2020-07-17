@@ -7,39 +7,47 @@ namespace BattleOfCards.Game
 {
     class Deck
     {
-        private List<Card> DeckOfCards = new List<Card>();
+        public List<Card> DeckOfCards = new List<Card>();
 
         public Deck(List<Card> deckOfCards)
         {
             DeckOfCards = deckOfCards;
         }
 
-        private static List<Card> Shuffle(List<Card> DeckOfCards)
+        public void Shuffle(List<Card> deckToShuffle)
         {
             //Shuffle using Fisher-Yates Modern method ---> select random number, swap with last number then add to collection.
             Random randomCard = new Random(DateTime.Now.Millisecond);
-            for (int n = DeckOfCards.Count - 1; n > 0; --n)
+            for (int n = deckToShuffle.Count - 1; n > 0; --n)
             {
                 int randomedCard = randomCard.Next(n + 1);
 
-                Card temporaryDeckCard = DeckOfCards[n];
-                DeckOfCards[n] = DeckOfCards[randomedCard];
-                DeckOfCards[randomedCard] = temporaryDeckCard;
+                Card temporaryDeckCard = deckToShuffle[n];
+                deckToShuffle[n] = deckToShuffle[randomedCard];
+                deckToShuffle[randomedCard] = temporaryDeckCard;
             }
-            List<Card> ShuffledDeck = new List<Card>();
-            foreach (var card in DeckOfCards)
-            {
-                ShuffledDeck.Add(card);
-            }
-            return ShuffledDeck;
         }
-        public static IEnumerable<List<Card>> Dealing(List<Card> ShuffledDeck, int numberOfPlayers)
+        public void Dealing()
         {
-            for (int i = 0; i < ShuffledDeck.Count(); i += numberOfPlayers)
+            for (int i = 0; i < Table.Players.Count() && DeckOfCards.Count() != 0; i++)
             {
-                yield return ShuffledDeck.GetRange(i, Math.Min(numberOfPlayers, ShuffledDeck.Count - i));
+                Table.Players[i].HandOfCards.Add(DeckOfCards[0]);
+                DeckOfCards.RemoveAt(0);
+                if (i == Table.Players.Count() - 1)
+                {
+                    i = -1;
+                }
             }
         }
+
+        //public IEnumerable<List<Card>> Dealing(int numberOfPlayers)
+        //{
+        //    for (int i = 0; i < this.DeckOfCards.Count(); i += numberOfPlayers)
+        //    {
+        //        yield return this.DeckOfCards.GetRange(i, Math.Min(numberOfPlayers, this.DeckOfCards.Count - i));
+        //    }
+        //}
+
 
     }
 }

@@ -13,9 +13,8 @@ namespace BattleOfCards
     {
         public static void Main()
         {
-            ICardRepo repo = new CardRepo();
-
-            Deck deck = new Deck(repo.GetAllCards());
+            Table table = new Table();
+            table.GameStart();
 
         }
     } 
