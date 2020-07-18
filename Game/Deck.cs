@@ -27,6 +27,7 @@ namespace BattleOfCards.Game
                 deckToShuffle[randomedCard] = temporaryDeckCard;
             }
         }
+
         public void Dealing()
         {
             while (DeckOfCards.Count() > 0)
@@ -40,13 +41,6 @@ namespace BattleOfCards.Game
                     }
                 }
             }
-            //for (int i = 0; i < Table.Players.Count() && DeckOfCards.Count() != 0; i++)
-            //{
-            //    if (i == Table.Players.Count() - 1)
-            //    {
-            //        i = -1;
-            //    }
-            //}
         }
     }
 }
