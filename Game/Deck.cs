@@ -29,12 +29,15 @@ namespace BattleOfCards.Game
         }
         public void Dealing()
         {
-            while (DeckOfCards.Count() >= 3)
+            while (DeckOfCards.Count() > 0)
             {
                 foreach (var Player in Table.Players)
                 {
-                    Player.HandOfCards.Add(DeckOfCards[0]);
-                    DeckOfCards.RemoveAt(0);
+                    if (DeckOfCards.Count() > 0)
+                    {
+                        Player.HandOfCards.Add(DeckOfCards[0]);
+                        DeckOfCards.RemoveAt(0);
+                    }
                 }
             }
             //for (int i = 0; i < Table.Players.Count() && DeckOfCards.Count() != 0; i++)
